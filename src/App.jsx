@@ -327,7 +327,7 @@ export default function SmartTrolleyApp() {
               <p className="text-emerald-400 font-bold mb-2 uppercase tracking-widest text-sm flex items-center gap-2">
                 <CheckCircle size={16} /> Checkout Pembayaran
               </p>
-              <h2 className="text-5xl font-black mb-8 text-white">{formatRp(totalBelanja)}</h2>
+              <h2 className="text-3xl md:text-5xl font-black mb-8 text-white">{formatRp(totalBelanja)}</h2>
               <div className="space-y-4 border-t border-slate-700/50 pt-6 text-lg">
                 <div className="flex justify-between text-slate-300">
                   <span>Jumlah Barang</span><span className="font-bold text-white">{totalItem} Item</span>
@@ -341,7 +341,7 @@ export default function SmartTrolleyApp() {
               Batal & Kembali
             </button>
           </div>
-          <div className="p-12 md:w-1/2 flex flex-col items-center justify-center text-center bg-white">
+          <div className="p-6 md:p-12 md:w-1/2 flex flex-col items-center justify-center text-center bg-white">
             <h3 className="text-3xl font-black text-slate-900 mb-2">Scan QRIS</h3>
             <p className="text-slate-500 mb-10 text-lg">Buka aplikasi M-Banking atau e-Wallet Anda.</p>
             <div className="w-64 h-64 bg-white rounded-3xl border-4 border-emerald-500 p-3 shadow-2xl shadow-emerald-500/20 mb-10 relative group cursor-pointer transition-transform hover:scale-105" onClick={() => setView('success')}>
@@ -433,7 +433,7 @@ export default function SmartTrolleyApp() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 w-full max-w-md">
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md">
           <button 
             onClick={handlePrint}
             className="flex-1 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-2xl shadow-sm flex items-center justify-center gap-2 transition-all"
@@ -453,20 +453,20 @@ export default function SmartTrolleyApp() {
 
   // ── TAMPILAN UTAMA ──
   return (
-    <div className="min-h-screen bg-[#f1f5f9] font-['Plus_Jakarta_Sans'] flex overflow-hidden selection:bg-emerald-200">
+    <div className="min-h-screen bg-[#f1f5f9] font-['Plus_Jakarta_Sans'] flex flex-col xl:flex-row overflow-hidden">
       
       {/* KIRI: Katalog Barang */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
         
         {/* ── HEADER PREMIUM ── */}
         <div className="p-6 pb-2 z-10">
-          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-[2rem] p-8 shadow-2xl shadow-slate-900/20 flex flex-col lg:flex-row justify-between items-center gap-6 border border-slate-700">
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-[2rem] p-4 md:p-8 shadow-2xl shadow-slate-900/20 flex flex-col lg:flex-row justify-between items-center gap-6 border border-slate-700">
             <div className="flex items-center gap-5">
               <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-500/30 border border-emerald-300/50">
                 <Store size={32} className="text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
+                <h1 className="text-xl md:text-3xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
                   Smart Trolley IoT
                 </h1>
                 <p className="text-emerald-400 font-bold tracking-widest uppercase text-xs mt-1">
@@ -493,7 +493,7 @@ export default function SmartTrolleyApp() {
 
         {/* Search & Filter Bar */}
         <div className="px-6 py-4 z-10">
-          <div className="flex gap-4 items-center bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+          <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center bg-white p-2 rounded-2xl">
             <div className="flex-1 relative group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors" size={20} />
               <input 
@@ -505,7 +505,7 @@ export default function SmartTrolleyApp() {
               />
             </div>
             <div className="w-px h-8 bg-slate-200 mx-2"></div>
-            <div className="flex gap-2 overflow-x-auto scrollbar-hide shrink-0 max-w-xl pr-2">
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide w-full lg:w-auto pr-2">
               {CATEGORIES.map(category => (
                 <button
                   key={category}
@@ -532,7 +532,7 @@ export default function SmartTrolleyApp() {
               <p className="text-lg">Coba gunakan kata kunci lain (misal: "Ayam", "Kopi", "Susu").</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {filteredProducts.map(product => (
                 <div 
                   key={product.id} 
@@ -567,7 +567,7 @@ export default function SmartTrolleyApp() {
       </div>
 
       {/* KANAN: Keranjang Premium */}
-      <div className="w-[480px] bg-white shadow-[-30px_0_60px_rgba(0,0,0,0.05)] h-screen flex flex-col z-20 shrink-0 border-l border-slate-200 relative">
+      <div className="w-full xl:w-[480px] bg-white shadow-[-30px_0_60px_rgba(0,0,0,0.05)] xl:h-screen flex flex-col z-20 shrink-0 border-l border-slate-200 relative">
         <div className="p-8 border-b border-slate-100 bg-white">
           <div className="flex justify-between items-center mb-3">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">Keranjang</h2>
