@@ -260,12 +260,17 @@ export default function SmartTrolleyApp() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Semua');
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [visibleProducts, setVisibleProducts] = useState(8);
 
   // Update Jam Real-time
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    setVisibleProducts(8);
+  }, [searchQuery, selectedCategory]);
 
   // Format Rupiah
   const formatRp = (angka) => {
@@ -533,7 +538,7 @@ export default function SmartTrolleyApp() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {filteredProducts.map(product => (
+              {filteredProducts.slice(0, visibleProducts).map(product => (
                 <div 
                   key={product.id} 
                   onClick={() => handleScanItem(product)}
@@ -564,6 +569,16 @@ export default function SmartTrolleyApp() {
             </div>
           )}
         </div>
+        {visibleProducts < filteredProducts.length && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={() => setVisibleProducts(prev => prev + 8)}
+              className="px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition"
+            >
+              Lihat Lainnya
+            </button>
+          </div>
+        )}
       </div>
 
       {/* KANAN: Keranjang Premium */}
