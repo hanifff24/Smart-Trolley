@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { 
-  ShoppingCart, Trash2, CreditCard, ChevronRight, 
+import {
+  ShoppingCart, Trash2, CreditCard, ChevronRight,
   CheckCircle, Plus, Minus, ScanBarcode, Store, Search,
   Tag, Clock, Receipt, Printer, ArrowLeft
 } from 'lucide-react';
+import qrisImage from './assets/qris.png';
 
 // ── DATA KATALOG MEGA SUPERMARKET (18 Kategori) ──
 const PRODUCTS = [
@@ -321,12 +322,21 @@ export default function SmartTrolleyApp() {
     window.print();
   };
 
+  // Halaman succes url
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.get('status') === 'success') {
+    setView('success');
+  }
+}, []);
+
   // ── TAMPILAN QRIS ──
   if (view === 'qris') {
     return (
       <div className="min-h-screen bg-slate-100 flex items-center justify-center p-6 font-['Plus_Jakarta_Sans']">
-        <div className="bg-white w-full max-w-4xl rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-200">
-          <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-12 md:w-1/2 flex flex-col justify-between relative overflow-hidden">
+        <div className="bg-white w-full max-w-4xl rounded-[2rem] shadow-2xl overflow-x-hidden flex flex-col md:flex-row border border-slate-200">
+          <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-12 md:w-1/2 flex flex-col justify-between relative overflow-x-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
             <div className="relative z-10">
               <p className="text-emerald-400 font-bold mb-2 uppercase tracking-widest text-sm flex items-center gap-2">
@@ -350,7 +360,7 @@ export default function SmartTrolleyApp() {
             <h3 className="text-3xl font-black text-slate-900 mb-2">Scan QRIS</h3>
             <p className="text-slate-500 mb-10 text-lg">Buka aplikasi M-Banking atau e-Wallet Anda.</p>
             <div className="w-64 h-64 bg-white rounded-3xl border-4 border-emerald-500 p-3 shadow-2xl shadow-emerald-500/20 mb-10 relative group cursor-pointer transition-transform hover:scale-105" onClick={() => setView('success')}>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QRIS Code" className="w-full h-full object-contain opacity-90"/>
+              <img src={qrisImage} alt="QRIS Code" className="w-full h-full object-contain opacity-90"/>
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 rounded-2xl backdrop-blur-sm">
                 <span className="bg-emerald-500 text-white font-black px-6 py-3 rounded-xl shadow-lg">Simulasi Bayar Lunas</span>
               </div>
@@ -376,7 +386,7 @@ export default function SmartTrolleyApp() {
         </div>
 
         {/* E-Receipt / Struk Thermal */}
-        <div className="bg-white w-full max-w-md shadow-2xl rounded-t-lg rounded-b-sm overflow-hidden mb-8 animate-in zoom-in-95 duration-700 relative">
+        <div className="bg-white w-full max-w-md shadow-2xl rounded-t-lg rounded-b-sm overflow-x-hidden mb-8 animate-in zoom-in-95 duration-700 relative">
           {/* Ornamen Struk (Dashed line effect top/bottom) */}
           <div className="h-2 w-full bg-[radial-gradient(circle,transparent_4px,#fff_4px)] bg-[length:12px_12px] -mt-1 relative z-10 drop-shadow-sm rotate-180"></div>
           
@@ -458,10 +468,10 @@ export default function SmartTrolleyApp() {
 
   // ── TAMPILAN UTAMA ──
   return (
-    <div className="min-h-screen bg-[#f1f5f9] font-['Plus_Jakarta_Sans'] flex flex-col xl:flex-row overflow-hidden">
+    <div className="min-h-screen bg-[#f1f5f9] font-['Plus_Jakarta_Sans'] flex flex-col xl:flex-row overflow-x-hidden">
       
       {/* KIRI: Katalog Barang */}
-      <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
+      <div className="flex-1 flex flex-col min-h-screen overflow-x-hidden relative">
         
         {/* ── HEADER PREMIUM ── */}
         <div className="p-6 pb-2 z-10">
@@ -544,7 +554,7 @@ export default function SmartTrolleyApp() {
                   onClick={() => handleScanItem(product)}
                   className="bg-white rounded-[1.5rem] p-3 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer border border-slate-200 group flex flex-col h-full"
                 >
-                  <div className="h-44 w-full rounded-2xl relative overflow-hidden bg-slate-100 mb-4">
+                  <div className="h-44 w-full rounded-2xl relative overflow-x-hidden bg-slate-100 mb-4">
                     <img 
                       src={product.image} 
                       alt={product.name} 
@@ -582,7 +592,7 @@ export default function SmartTrolleyApp() {
       </div>
 
       {/* KANAN: Keranjang Premium */}
-      <div className="w-full xl:w-[480px] bg-white shadow-[-30px_0_60px_rgba(0,0,0,0.05)] xl:h-screen flex flex-col z-20 shrink-0 border-l border-slate-200 relative">
+      <div className="w-full xl:w-[480px] bg-white shadow-[-30px_0_60px_rgba(0,0,0,0.05)] xl:min-h-screen flex flex-col z-20 shrink-0 border-l border-slate-200 relative">
         <div className="p-8 border-b border-slate-100 bg-white">
           <div className="flex justify-between items-center mb-3">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight">Keranjang</h2>
